@@ -24,11 +24,7 @@ export async function fetchProductosFromSupabase(): Promise<{ data: Producto[]; 
 
     // Normalizar exclusivamente los productos reales de la base de datos
     const normalized: Producto[] = data.map((item: any) => {
-      // Limpieza de URL de imagen si es necesario
-      let imgUrl = item.imagen_url || '';
-      if (imgUrl.includes('WhatsApp%20Image') && item.nombre?.toLowerCase().includes('capibara')) {
-        imgUrl = 'https://qljbqulwtktyvplqftqs.supabase.co/storage/v1/object/public/imagenes%20de%20productos/capibara.jpeg';
-      }
+      let imgUrl = (item.imagen_url || '').trim();
 
       // Si material contiene descripción o viceversa
       let material = item.material || 'PLA';

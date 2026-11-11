@@ -1,15 +1,36 @@
-import { ArrowRight, MessageCircle, ShieldCheck, Layers, MapPin, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, MessageCircle, ShieldCheck, Layers, MapPin } from 'lucide-react';
 import { WHATSAPP_PHONE } from '../context/CartContext.tsx';
+import type { Producto } from '../types.ts';
 
 interface HeroProps {
+  products: Producto[];
   onExploreCatalog: () => void;
   onExploreAbout: () => void;
+  onSelectProduct: (product: Producto) => void;
 }
 
-export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
+export default function Hero({ products, onExploreCatalog, onExploreAbout, onSelectProduct }: HeroProps) {
+  const [imgErrors, setImgErrors] = useState<Record<string | number, boolean>>({});
+
   const directWaUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
     'Hola Gaming 3D. Me comunico desde su tienda web para consultar por productos o una pieza a medida.'
   )}`;
+
+  const formatPrice = (val: number) => {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'currency',
+      currency: 'ARS',
+      maximumFractionDigits: 0
+    }).format(val);
+  };
+
+  const handleImgError = (id: string | number) => {
+    setImgErrors((prev) => ({ ...prev, [id]: true }));
+  };
+
+  // Select top featured items from live database
+  const featured = products.slice(0, 3);
 
   return (
     <section id="hero" className="relative overflow-hidden pt-8 pb-16 lg:py-24 bg-[#090d16] border-b border-slate-800/80">
@@ -33,7 +54,7 @@ export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
 
             {/* Description */}
             <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed">
-              En <strong className="text-slate-200 font-semibold">Gaming 3D</strong> desarrollamos accesorios, soportes y piezas personalizadas con precisión milimétrica. Taller de producción artesanal y control dimensional con sede en San Pedro de Jujuy.
+              En <strong className="text-slate-200 font-semibold">Gaming 3D</strong> desarrollamos accesorios, llaveros y piezas personalizadas con precisión milimétrica. Taller de producción artesanal y control dimensional con sede en San Pedro de Jujuy.
             </p>
 
             {/* CTAs */}
@@ -93,54 +114,88 @@ export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
 
           </div>
 
-          {/* Right Visual Column: Real products showcase from Supabase */}
+          {/* Right Visual Column: Dynamic real products showcase from Supabase */}
           <div className="lg:col-span-5 space-y-4">
             <div className="bg-slate-900/90 rounded-xl border border-slate-800 p-4 space-y-3">
               <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800">
                 <span className="font-semibold text-slate-200 uppercase tracking-wider text-[11px]">
                   Productos en Taller
                 </span>
-                <span className="text-sky-400 font-mono text-[11px]">Catálogo Oficial</span>
+                <span className="text-sky-400 font-mono text-[11px]">Base de Datos en Vivo</span>
               </div>
 
-              {/* Grid of real items from Supabase */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="group relative rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-square">
-                  <img
-                    src="https://qljbqulwtktyvplqftqs.supabase.co/storage/v1/object/public/imagenes%20de%20productos/capibara.jpeg"
-                    alt="Capibara matero"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/90 backdrop-blur-sm border-t border-slate-800 text-[11px]">
-                    <p className="font-bold text-white truncate">Capibara Matero</p>
-                    <p className="text-sky-400 font-mono font-bold">$6.000 ARS</p>
+              {/* Dynamic Grid of real items from Supabase */}
+              {featured.length > 0 ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    {featured.slice(0, 2).map((item) => (
+                      <div
+                        key={item.id}
+                        onClick={() => onSelectProduct(item)}
+                        className="group relative rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-square cursor-pointer hover:border-slate-700 transition-colors"
+                      >
+                        {item.imagen_url && !imgErrors[item.id] ? (
+                          <img
+                            src={item.imagen_url}
+                            alt={item.nombre}
+                            onError={() => handleImgError(item.id)}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center p-3 text-slate-500 text-center bg-slate-950">
+                            <Layers className="w-6 h-6 text-slate-600 mb-1" />
+                            <p className="text-[11px] font-bold text-slate-300 line-clamp-1">{item.nombre}</p>
+                            <p className="text-[9px] text-slate-600 uppercase mt-0.5">{item.material}</p>
+                          </div>
+                        )}
+                        <div className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/90 backdrop-blur-sm border-t border-slate-800 text-[11px]">
+                          <p className="font-bold text-white truncate">{item.nombre}</p>
+                          <p className="text-sky-400 font-mono font-bold">{formatPrice(item.precio)}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
 
-                <div className="group relative rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-square">
-                  <img
-                    src="https://qljbqulwtktyvplqftqs.supabase.co/storage/v1/object/public/imagenes%20de%20productos/lagartija%20tom.jpeg"
-                    alt="Lagartija Tom"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/90 backdrop-blur-sm border-t border-slate-800 text-[11px]">
-                    <p className="font-bold text-white truncate">Lagartija Tom</p>
-                    <p className="text-sky-400 font-mono font-bold">$5.000 ARS</p>
-                  </div>
+                  {/* 3rd item or summary bar */}
+                  {featured[2] && (
+                    <div
+                      onClick={() => onSelectProduct(featured[2])}
+                      className="p-3 bg-slate-950 hover:bg-slate-950/80 rounded-lg border border-slate-800 hover:border-slate-700 transition-colors flex items-center justify-between cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded bg-slate-900 border border-slate-800 overflow-hidden shrink-0">
+                          {featured[2].imagen_url && !imgErrors[featured[2].id] ? (
+                            <img
+                              src={featured[2].imagen_url}
+                              alt={featured[2].nombre}
+                              onError={() => handleImgError(featured[2].id)}
+                              className="w-full h-full object-cover"
+                              referrerPolicy="no-referrer"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-[10px] text-slate-600 font-bold">
+                              3D
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-xs truncate">
+                          <p className="font-semibold text-slate-200 truncate">{featured[2].nombre}</p>
+                          <p className="text-[11px] text-slate-400">{featured[2].material} · {featured[2].color || 'Original'}</p>
+                        </div>
+                      </div>
+                      <span className="font-mono text-sm font-bold text-sky-400 tabular-nums shrink-0 ml-3">
+                        {formatPrice(featured[2].precio)}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              </div>
+              ) : (
+                <div className="py-12 text-center text-xs text-slate-500">
+                  Cargando productos del taller...
+                </div>
+              )}
 
-              <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-between">
-                <div className="text-xs">
-                  <p className="font-semibold text-slate-200">Soporte Ergonómico para Celular</p>
-                  <p className="text-[11px] text-slate-400">Diseño compacto en PLA · Color Verde</p>
-                </div>
-                <span className="font-mono text-sm font-bold text-sky-400 tabular-nums">
-                  $3.000 ARS
-                </span>
-              </div>
             </div>
           </div>
 

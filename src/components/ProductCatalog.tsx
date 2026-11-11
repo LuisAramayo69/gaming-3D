@@ -5,33 +5,54 @@ import { fetchProductosFromSupabase } from '../lib/supabase.ts';
 import { useCart } from '../context/CartContext.tsx';
 
 interface ProductCatalogProps {
+  products?: Producto[];
+  loading?: boolean;
+  error?: string | null;
+  onReload?: () => void;
   onSelectProduct: (producto: Producto) => void;
 }
 
-export default function ProductCatalog({ onSelectProduct }: ProductCatalogProps) {
+export default function ProductCatalog({
+  products: initialProducts,
+  loading: initialLoading,
+  error: initialError,
+  onReload: externalReload,
+  onSelectProduct
+}: ProductCatalogProps) {
   const { addToCart } = useCart();
-  const [products, setProducts] = useState<Producto[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [localProducts, setLocalProducts] = useState<Producto[]>([]);
+  const [localLoading, setLocalLoading] = useState<boolean>(true);
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  const products = initialProducts !== undefined ? initialProducts : localProducts;
+  const loading = initialLoading !== undefined ? initialLoading : localLoading;
+  const error = initialError !== undefined ? initialError : localError;
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedMaterial, setSelectedMaterial] = useState<string>('todos');
   const [sortBy, setSortBy] = useState<'precio-asc' | 'precio-desc' | 'recientes'>('recientes');
 
   const loadProducts = async () => {
-    setLoading(true);
-    setError(null);
+    if (externalReload) {
+      externalReload();
+      return;
+    }
+    setLocalLoading(true);
+    setLocalError(null);
     const { data, error: fetchErr } = await fetchProductosFromSupabase();
     if (fetchErr) {
-      setError(fetchErr);
+      setLocalError(fetchErr);
     } else {
-      setProducts(data);
+      setLocalProducts(data);
     }
-    setLoading(false);
+    setLocalLoading(false);
   };
 
   useEffect(() => {
-    loadProducts();
-  }, []);
+    if (initialProducts === undefined) {
+      loadProducts();
+    }
+  }, [initialProducts]);
 
   // Extract materials for filter tabs
   const availableMaterials = useMemo(() => {
