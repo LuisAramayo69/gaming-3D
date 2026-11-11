@@ -1,0 +1,6 @@
+{
+  "name": "Gaming 3D - Tienda Oficial",
+  "description": "Tienda de accesorios y coleccionables artesanales en impresión 3D para gamers. Vivir y jugar con grandeza.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
