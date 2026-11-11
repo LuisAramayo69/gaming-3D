@@ -147,7 +147,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         ? 'Transferencia Bancaria (Alias/CBU)'
         : customer.metodoPago === 'mercadopago'
         ? 'Mercado Pago'
-        : 'Efectivo / Pago al retirar en Jujuy'
+        : 'Efectivo / Pago al retirar en San Pedro de Jujuy'
     }\n`;
 
     if (customer.notas && customer.notas.trim()) {

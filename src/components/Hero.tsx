@@ -1,4 +1,4 @@
-import { ArrowRight, MessageCircle, ShieldCheck, Cpu, Sparkles, MapPin } from 'lucide-react';
+import { ArrowRight, MessageCircle, ShieldCheck, Layers, MapPin, Sparkles } from 'lucide-react';
 import { WHATSAPP_PHONE } from '../context/CartContext.tsx';
 
 interface HeroProps {
@@ -8,14 +8,11 @@ interface HeroProps {
 
 export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
   const directWaUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-    '¡Hola Gaming 3D! 👋 Estuve viendo su tienda y me gustaría consultar por productos o una pieza personalizada.'
+    'Hola Gaming 3D. Me comunico desde su tienda web para consultar por productos o una pieza a medida.'
   )}`;
 
   return (
-    <section id="hero" className="relative overflow-hidden pt-6 pb-16 lg:py-20">
-      {/* Background radial atmosphere */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-amber-500/10 via-red-500/5 to-transparent blur-3xl -z-10 pointer-events-none" />
-
+    <section id="hero" className="relative overflow-hidden pt-8 pb-16 lg:py-24 bg-[#090d16] border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
@@ -23,32 +20,29 @@ export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
           <div className="lg:col-span-7 space-y-6">
             
             {/* Slogan Kicker */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-xs font-semibold text-amber-400 tracking-wide uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-700/80 bg-slate-900/90 text-xs font-semibold text-slate-300 tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
               <span>Vivir y jugar con grandeza</span>
             </div>
 
-            {/* Main Headline with balance */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight text-white text-balance leading-[1.08]">
-              Accesorios y figuras en{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-500">
-                Impresión 3D
-              </span>{' '}
-              para elevar tu setup.
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white text-balance leading-[1.08]">
+              Manufactura aditiva y diseño en{' '}
+              <span className="text-sky-400">Impresión 3D</span>
             </h1>
 
             {/* Description */}
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-              En <strong className="text-white font-semibold">Gaming 3D</strong> fusionamos la cultura gamer con la precisión de la manufactura aditiva artesanal. Creamos soportes ergonómicos, organizadores de cables y figuras con calibración milimétrica y acabados únicos hechos a mano en Jujuy.
+            <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed">
+              En <strong className="text-slate-200 font-semibold">Gaming 3D</strong> desarrollamos accesorios, soportes y piezas personalizadas con precisión milimétrica. Taller de producción artesanal y control dimensional con sede en San Pedro de Jujuy.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={onExploreCatalog}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-amber-500 via-amber-400 to-orange-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs uppercase tracking-wider rounded-lg shadow-sm transition-all duration-150 cursor-pointer active:scale-98"
               >
-                <span>Explorar Catálogo</span>
+                <span>Ver Catálogo</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -56,71 +50,95 @@ export default function Hero({ onExploreCatalog, onExploreAbout }: HeroProps) {
                 href={directWaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700/80 rounded-xl transition-all duration-200 cursor-pointer group"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-150 cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
-                <span className="font-semibold text-sm">Pedido a Medida</span>
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                <span>Contacto Directo</span>
               </a>
 
               <button
                 onClick={onExploreAbout}
-                className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors py-2 px-1 underline underline-offset-4 decoration-slate-700 hover:decoration-amber-400 cursor-pointer"
+                className="text-xs uppercase tracking-wider font-semibold text-slate-400 hover:text-white transition-colors py-2 px-1 cursor-pointer"
               >
-                Nuestra historia
+                Conocer el taller →
               </button>
             </div>
 
             {/* Trust points */}
-            <div className="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-xs text-slate-400">
+            <div className="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-6 text-xs text-slate-400">
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-slate-200 font-semibold">
-                  <Cpu className="w-4 h-4 text-amber-400" />
-                  <span>PLA+ & PETG</span>
+                <div className="flex items-center gap-2 text-slate-200 font-semibold">
+                  <Layers className="w-4 h-4 text-sky-400" />
+                  <span>Filamento Técnico</span>
                 </div>
-                <p className="text-slate-500">Biopolímeros y resistencia térmica</p>
+                <p className="text-slate-500 text-[11px]">PLA de alta pureza y PETG</p>
               </div>
 
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-slate-200 font-semibold">
-                  <ShieldCheck className="w-4 h-4 text-amber-400" />
-                  <span>Calidad Artesanal</span>
+                <div className="flex items-center gap-2 text-slate-200 font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-sky-400" />
+                  <span>Control de Calidad</span>
                 </div>
-                <p className="text-slate-500">Inspección pieza por pieza</p>
+                <p className="text-slate-500 text-[11px]">Inspección manual unitaria</p>
               </div>
 
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-slate-200 font-semibold">
-                  <MapPin className="w-4 h-4 text-amber-400" />
-                  <span>Jujuy al País</span>
+                <div className="flex items-center gap-2 text-slate-200 font-semibold">
+                  <MapPin className="w-4 h-4 text-sky-400" />
+                  <span>San Pedro de Jujuy</span>
                 </div>
-                <p className="text-slate-500">Envíos seguros a toda Argentina</p>
+                <p className="text-slate-500 text-[11px]">Envíos a toda la provincia y el país</p>
               </div>
             </div>
 
           </div>
 
-          {/* Right Visual Column */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 shadow-2xl group">
-              <img
-                src="/src/assets/images/hero_gaming3d_showcase_1794327290861.jpg"
-                alt="Soporte y accesorios de Gaming 3D para setup gamer"
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                referrerPolicy="no-referrer"
-              />
-              
-              {/* Subtle glass overlay card inside */}
-              <div className="absolute bottom-4 left-4 right-4 bg-slate-950/85 backdrop-blur-md p-4 rounded-xl border border-slate-800/80 flex items-center justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-wider text-amber-400 font-semibold">
-                    Línea Signature
-                  </p>
-                  <p className="text-sm font-bold text-white">
-                    Soportes Geométricos & Docks
-                  </p>
+          {/* Right Visual Column: Real products showcase from Supabase */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="bg-slate-900/90 rounded-xl border border-slate-800 p-4 space-y-3">
+              <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800">
+                <span className="font-semibold text-slate-200 uppercase tracking-wider text-[11px]">
+                  Productos en Taller
+                </span>
+                <span className="text-sky-400 font-mono text-[11px]">Catálogo Oficial</span>
+              </div>
+
+              {/* Grid of real items from Supabase */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="group relative rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-square">
+                  <img
+                    src="https://qljbqulwtktyvplqftqs.supabase.co/storage/v1/object/public/imagenes%20de%20productos/capibara.jpeg"
+                    alt="Capibara matero"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/90 backdrop-blur-sm border-t border-slate-800 text-[11px]">
+                    <p className="font-bold text-white truncate">Capibara Matero</p>
+                    <p className="text-sky-400 font-mono font-bold">$6.000 ARS</p>
+                  </div>
                 </div>
-                <span className="font-mono text-xs px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-300 rounded-md font-bold">
-                  Resistencia 100%
+
+                <div className="group relative rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-square">
+                  <img
+                    src="https://qljbqulwtktyvplqftqs.supabase.co/storage/v1/object/public/imagenes%20de%20productos/lagartija%20tom.jpeg"
+                    alt="Lagartija Tom"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/90 backdrop-blur-sm border-t border-slate-800 text-[11px]">
+                    <p className="font-bold text-white truncate">Lagartija Tom</p>
+                    <p className="text-sky-400 font-mono font-bold">$5.000 ARS</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-between">
+                <div className="text-xs">
+                  <p className="font-semibold text-slate-200">Soporte Ergonómico para Celular</p>
+                  <p className="text-[11px] text-slate-400">Diseño compacto en PLA · Color Verde</p>
+                </div>
+                <span className="font-mono text-sm font-bold text-sky-400 tabular-nums">
+                  $3.000 ARS
                 </span>
               </div>
             </div>

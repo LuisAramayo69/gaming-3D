@@ -29,12 +29,12 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
+    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col selection:bg-slate-800 selection:text-white">
       
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed top-24 right-4 z-50 bg-slate-900 border border-amber-500/40 text-amber-300 px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2 text-xs font-semibold animate-in fade-in slide-in-from-top-2 duration-200">
-          <Check className="w-4 h-4 text-emerald-400" />
+        <div className="fixed top-24 right-4 z-50 bg-slate-900 border border-slate-700 text-slate-200 px-3.5 py-2 rounded-lg shadow-xl flex items-center gap-2 text-xs font-medium animate-in fade-in duration-150">
+          <Check className="w-3.5 h-3.5 text-emerald-400" />
           <span>{notification}</span>
         </div>
       )}

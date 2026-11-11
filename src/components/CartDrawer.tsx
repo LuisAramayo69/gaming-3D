@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Trash2, ShoppingBag, ArrowRight, MessageCircle, Copy, Check, Sparkles, MapPin, CreditCard } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, MessageCircle, Copy, Check, MapPin } from 'lucide-react';
 import { useCart, WHATSAPP_PHONE } from '../context/CartContext.tsx';
 import type { OrderCustomerInfo } from '../types.ts';
 
@@ -20,7 +20,7 @@ export default function CartDrawer() {
   const [customer, setCustomer] = useState<OrderCustomerInfo>({
     nombre: '',
     telefono: '',
-    ciudad: 'San Salvador de Jujuy',
+    ciudad: 'San Pedro de Jujuy',
     direccion: '',
     metodoPago: 'transferencia',
     notas: ''
@@ -63,77 +63,73 @@ export default function CartDrawer() {
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 overflow-hidden bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 overflow-hidden bg-black/75 backdrop-blur-sm"
       onClick={() => setIsCartOpen(false)}
     >
       <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
         <div
           onClick={(e) => e.stopPropagation()}
-          className="w-screen max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300"
+          className="w-screen max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-200"
         >
           {/* Header */}
-          <div className="px-6 py-5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
-                <ShoppingBag className="w-5 h-5" />
-              </div>
+          <div className="px-5 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <ShoppingBag className="w-4 h-4 text-slate-300" />
               <div>
-                <h2 className="text-lg font-bold text-white font-display">Tu Carrito Gaming 3D</h2>
-                <p className="text-xs text-slate-400">
-                  {totalItems} {totalItems === 1 ? 'producto' : 'productos'} · Persistido automáticamente
+                <h2 className="text-sm font-bold text-white font-display">Carrito de Compras</h2>
+                <p className="text-[11px] text-slate-400">
+                  {totalItems} {totalItems === 1 ? 'producto' : 'productos'} seleccionados
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => setIsCartOpen(false)}
-              className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-1.5 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
               aria-label="Cerrar carrito"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Cart items list or empty view */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex-1 overflow-y-auto p-5 space-y-5">
             {cart.length === 0 ? (
-              <div className="text-center py-16 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-slate-800/80 mx-auto flex items-center justify-center text-slate-500">
-                  <ShoppingBag className="w-8 h-8" />
-                </div>
-                <h3 className="text-base font-bold text-white">Tu carrito está vacío</h3>
+              <div className="text-center py-16 space-y-3">
+                <ShoppingBag className="w-8 h-8 text-slate-600 mx-auto" />
+                <h3 className="text-sm font-bold text-white">El carrito está vacío</h3>
                 <p className="text-xs text-slate-400 max-w-xs mx-auto">
-                  Agrega soportes, organizadores o figuras desde nuestro catálogo para armar tu pedido.
+                  Agrega productos desde el catálogo para iniciar tu pedido.
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded transition-colors cursor-pointer"
                 >
-                  Explorar Catálogo
+                  Ver Catálogo
                 </button>
               </div>
             ) : (
               <>
                 {/* Items */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800">
-                    <span>Artículos seleccionados</span>
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pb-1.5 border-b border-slate-800">
+                    <span>Artículos</span>
                     <button
                       onClick={clearCart}
-                      className="text-red-400 hover:text-red-300 hover:underline cursor-pointer flex items-center gap-1"
+                      className="text-slate-400 hover:text-red-400 cursor-pointer flex items-center gap-1 text-[11px]"
                     >
                       <Trash2 className="w-3 h-3" />
-                      Vaciar todo
+                      Vaciar
                     </button>
                   </div>
 
                   {cart.map((item) => (
                     <div
                       key={item.producto.id}
-                      className="flex gap-3 p-3 bg-slate-950/70 rounded-xl border border-slate-800/80"
+                      className="flex gap-3 p-3 bg-slate-950 rounded-lg border border-slate-800"
                     >
                       {/* Image Thumbnail */}
-                      <div className="w-16 h-16 rounded-lg bg-slate-900 overflow-hidden shrink-0 border border-slate-800">
+                      <div className="w-14 h-14 rounded bg-slate-900 overflow-hidden shrink-0 border border-slate-800">
                         {item.producto.imagen_url ? (
                           <img
                             src={item.producto.imagen_url}
@@ -150,7 +146,7 @@ export default function CartDrawer() {
 
                       {/* Item Details */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-bold text-white truncate">
+                        <h4 className="text-xs font-bold text-white truncate">
                           {item.producto.nombre}
                         </h4>
                         <div className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
@@ -158,11 +154,11 @@ export default function CartDrawer() {
                           {item.selectedColor && (
                             <>
                               <span>·</span>
-                              <span className="text-amber-400/90">{item.selectedColor}</span>
+                              <span className="text-slate-300">{item.selectedColor}</span>
                             </>
                           )}
                         </div>
-                        <div className="text-xs font-mono font-semibold text-amber-400 mt-1 tabular-nums">
+                        <div className="text-xs font-mono font-bold text-white mt-1 tabular-nums">
                           {formatPrice(item.producto.precio)}
                         </div>
                       </div>
@@ -171,13 +167,13 @@ export default function CartDrawer() {
                       <div className="flex flex-col justify-between items-end">
                         <button
                           onClick={() => removeFromCart(item.producto.id)}
-                          className="text-slate-500 hover:text-red-400 p-1 cursor-pointer"
-                          title="Eliminar producto"
+                          className="text-slate-500 hover:text-red-400 p-0.5 cursor-pointer"
+                          title="Eliminar"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-3 h-3" />
                         </button>
 
-                        <div className="flex items-center border border-slate-700/80 rounded-md bg-slate-900 text-xs">
+                        <div className="flex items-center border border-slate-800 rounded bg-slate-900 text-xs">
                           <button
                             onClick={() => updateQuantity(item.producto.id, item.cantidad - 1)}
                             className="px-2 py-0.5 text-slate-400 hover:text-white cursor-pointer"
@@ -200,14 +196,14 @@ export default function CartDrawer() {
                 </div>
 
                 {/* Customer Checkout Form */}
-                <form id="checkout-form" onSubmit={handleCheckout} className="pt-4 border-t border-slate-800 space-y-3.5">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 uppercase tracking-wider">
-                    <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Datos para WhatsApp & Envío</span>
+                <form id="checkout-form" onSubmit={handleCheckout} className="pt-3 border-t border-slate-800 space-y-3">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                    <MapPin className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Datos de Envío o Retiro</span>
                   </div>
 
                   {formError && (
-                    <p className="text-xs text-red-400 bg-red-950/40 p-2 rounded border border-red-800/60">
+                    <p className="text-xs text-red-400 bg-red-950/40 p-2 rounded border border-red-900/60">
                       {formError}
                     </p>
                   )}
@@ -217,38 +213,38 @@ export default function CartDrawer() {
                     <input
                       type="text"
                       required
-                      placeholder="Ej. Lucas Ramos"
+                      placeholder="Ej. Lucas Morales"
                       value={customer.nombre}
                       onChange={(e) => setCustomer({ ...customer, nombre: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                      className="w-full px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-xs text-white placeholder-slate-600 focus:outline-none focus:border-slate-600"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-[11px] text-slate-400 mb-1">Ciudad / Provincia</label>
+                      <label className="block text-[11px] text-slate-400 mb-1">Ciudad / Localidad</label>
                       <input
                         type="text"
-                        placeholder="San Salvador de Jujuy"
+                        placeholder="San Pedro de Jujuy"
                         value={customer.ciudad}
                         onChange={(e) => setCustomer({ ...customer, ciudad: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                        className="w-full px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-xs text-white placeholder-slate-600 focus:outline-none focus:border-slate-600"
                       />
                     </div>
                     <div>
                       <label className="block text-[11px] text-slate-400 mb-1">Dirección / Retiro</label>
                       <input
                         type="text"
-                        placeholder="Calle y N° o Retiro en taller"
+                        placeholder="Domicilio o Retiro en taller"
                         value={customer.direccion}
                         onChange={(e) => setCustomer({ ...customer, direccion: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                        className="w-full px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-xs text-white placeholder-slate-600 focus:outline-none focus:border-slate-600"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] text-slate-400 mb-1">Método de pago preferido</label>
+                    <label className="block text-[11px] text-slate-400 mb-1">Forma de pago</label>
                     <div className="grid grid-cols-3 gap-1.5">
                       {[
                         { id: 'transferencia', label: 'Transferencia' },
@@ -259,9 +255,9 @@ export default function CartDrawer() {
                           type="button"
                           key={m.id}
                           onClick={() => setCustomer({ ...customer, metodoPago: m.id as any })}
-                          className={`py-1.5 text-[11px] font-medium rounded-lg border transition-colors cursor-pointer ${
+                          className={`py-1.5 text-[11px] font-medium rounded border transition-colors cursor-pointer ${
                             customer.metodoPago === m.id
-                              ? 'bg-amber-500/20 border-amber-400 text-amber-300 font-bold'
+                              ? 'bg-slate-800 border-slate-600 text-white font-semibold'
                               : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
                           }`}
                         >
@@ -275,10 +271,10 @@ export default function CartDrawer() {
                     <label className="block text-[11px] text-slate-400 mb-1">Notas especiales (opcional)</label>
                     <input
                       type="text"
-                      placeholder="Ej. Prefiero el soporte en color negro mate"
+                      placeholder="Color preferido, instrucciones de entrega..."
                       value={customer.notas || ''}
                       onChange={(e) => setCustomer({ ...customer, notas: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                      className="w-full px-3 py-1.5 bg-slate-950 border border-slate-800 rounded text-xs text-white placeholder-slate-600 focus:outline-none focus:border-slate-600"
                     />
                   </div>
                 </form>
@@ -288,48 +284,45 @@ export default function CartDrawer() {
 
           {/* Footer Summary & Checkout Actions */}
           {cart.length > 0 && (
-            <div className="p-6 bg-slate-950 border-t border-slate-800 space-y-4">
+            <div className="p-5 bg-slate-950 border-t border-slate-800 space-y-3.5">
               
-              {/* Financial Subtotal */}
-              <div className="space-y-1.5 text-xs text-slate-400">
+              <div className="space-y-1 text-xs text-slate-400">
                 <div className="flex justify-between">
                   <span>Subtotal productos:</span>
                   <span className="font-mono text-slate-200 tabular-nums">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-slate-400">
-                  <span>Coordinación de envío:</span>
-                  <span className="text-emerald-400 font-medium">Acordar por WhatsApp</span>
+                  <span>Entrega / Envío:</span>
+                  <span className="text-slate-300 font-medium">A coordinar por WhatsApp</span>
                 </div>
-                <div className="pt-2 border-t border-slate-800/80 flex justify-between items-baseline">
-                  <span className="text-sm font-bold text-white">Total Estimado:</span>
-                  <span className="font-mono text-2xl font-black text-amber-400 tabular-nums">
+                <div className="pt-2 border-t border-slate-800 flex justify-between items-baseline">
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">Total:</span>
+                  <span className="font-mono text-xl font-bold text-white tabular-nums">
                     {formatPrice(subtotal)}
                   </span>
                 </div>
               </div>
 
-              {/* Requirement 3: Botón de checkout que genere enlace https://wa.me/5493884597391 con el detalle formateado del pedido */}
               <div className="space-y-2">
                 <button
                   type="submit"
                   form="checkout-form"
-                  className="w-full flex items-center justify-center gap-2.5 py-3.5 px-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-600/20 active:scale-[0.98] transition-all cursor-pointer group"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
                 >
-                  <MessageCircle className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-                  <span>Finalizar Pedido por WhatsApp</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Enviar Pedido a WhatsApp</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </button>
 
-                {/* Secondary copy link trigger */}
-                <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
-                  <span>Enlace oficial: wa.me/{WHATSAPP_PHONE}</span>
+                <div className="flex items-center justify-between text-[11px] text-slate-500 px-0.5">
+                  <span>wa.me/{WHATSAPP_PHONE}</span>
                   <button
                     type="button"
                     onClick={handleCopyLink}
-                    className="inline-flex items-center gap-1 text-slate-400 hover:text-amber-400 cursor-pointer"
+                    className="inline-flex items-center gap-1 text-slate-400 hover:text-white cursor-pointer"
                   >
                     {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                    <span>{copied ? '¡Copiado!' : 'Copiar enlace'}</span>
+                    <span>{copied ? 'Copiado' : 'Copiar enlace'}</span>
                   </button>
                 </div>
               </div>

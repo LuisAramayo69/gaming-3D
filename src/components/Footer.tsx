@@ -1,4 +1,4 @@
-import { MessageCircle, Heart, ArrowUp } from 'lucide-react';
+import { MessageCircle, ArrowUp } from 'lucide-react';
 import { WHATSAPP_PHONE } from '../context/CartContext.tsx';
 
 interface FooterProps {
@@ -11,28 +11,28 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#070a10] border-t border-slate-900 text-slate-400 text-xs py-12">
+    <footer className="bg-[#070a10] border-t border-slate-800 text-slate-400 text-xs py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-900">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-800/80">
           
           {/* Brand & Slogan */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-gradient-to-tr from-red-600 via-amber-500 to-amber-400 flex items-center justify-center text-black font-black text-xs">
+              <div className="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-white font-bold text-xs">
                 3D
-              </span>
-              <span className="text-xl font-bold font-display text-white">
+              </div>
+              <span className="text-lg font-bold font-display text-white">
                 Gaming 3D
               </span>
             </div>
             
-            <p className="text-sm font-semibold text-amber-400 italic">
+            <p className="text-xs font-semibold text-slate-300">
               «Vivir y jugar con grandeza»
             </p>
 
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Taller de manufactura aditiva y artesanía digital. Desarrollamos accesorios, soportes de mandos, auriculares y figuras para gamers con estándares de alta calidad desde Jujuy, Argentina.
+              Taller de manufactura aditiva y diseño en impresión 3D. Accesorios, soportes y coleccionables producidos con calibración dimensional en San Pedro de Jujuy, Argentina.
             </p>
           </div>
 
@@ -45,7 +45,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigate('catalogo')}
-                  className="hover:text-amber-400 transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
                   Catálogo de Productos
                 </button>
@@ -53,25 +53,25 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigate('materiales')}
-                  className="hover:text-amber-400 transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Guía de Materiales (PLA / PETG)
+                  Materiales y Especificaciones
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigate('nosotros')}
-                  className="hover:text-amber-400 transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Historia de Nuestro Emprendimiento
+                  Sobre Nuestro Taller
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigate('contacto')}
-                  className="hover:text-amber-400 transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Dirección y Horarios
+                  Contacto y Dirección
                 </button>
               </li>
             </ul>
@@ -80,12 +80,12 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Direct channels */}
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Atención Directa
+              Sede & Atención
             </h4>
-            <p className="text-xs text-slate-400">
-              San Salvador de Jujuy, Argentina
+            <p className="text-xs text-slate-300">
+              San Pedro de Jujuy, Argentina
             </p>
-            <p className="font-mono text-slate-300">
+            <p className="font-mono text-slate-400">
               contacto@gaming3d.ar
             </p>
             <div className="pt-1">
@@ -93,7 +93,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 href={`https://wa.me/${WHATSAPP_PHONE}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-800 text-emerald-300 hover:text-white transition-colors text-xs font-semibold"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-900 border border-slate-800 text-slate-200 hover:text-white transition-colors text-xs font-mono"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                 <span>+54 9 388 459 7391</span>
@@ -105,17 +105,15 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-          <div className="flex items-center gap-1">
-            <span>© {new Date().getFullYear()} Gaming 3D. Vivir y jugar con grandeza.</span>
-            <span>·</span>
-            <span>Hecho con dedicación artesanal</span>
+          <div>
+            <span>© {new Date().getFullYear()} Gaming 3D · Vivir y jugar con grandeza · San Pedro de Jujuy.</span>
           </div>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 hover:text-slate-300 transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
-            <span>Volver arriba</span>
+            <span>Inicio</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>
